@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -29,7 +31,7 @@ public class Customer {
     @Column(name = "city")
     private String city;
 
-    @Column(name = "pincode")
+    @Column(name = "pincode", nullable = false)
     private Long pincode;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -37,4 +39,10 @@ public class Customer {
 
     @Column(name="password", nullable = false)
     private String password;
+
+    @Column(name="created_on")
+    private LocalDateTime createdOn;
+
+    @Column(name="updated_on")
+    private LocalDateTime updatedOn;
 }
