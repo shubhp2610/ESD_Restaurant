@@ -9,6 +9,7 @@ import com.example.esd_restaurant.helper.EncryptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -40,5 +41,36 @@ public class CustomerService {
         }
     }
 
+    public Customer fetchCustomer(String email) {
+        return repo.findByEmail(email).orElse(null); // Return null if not found
+    }
 
+    public Customer updateCustomer(String email, CustomerRequest.CustomerUpdateRequest updateRequest) {
+        // Fetch the existing customer by email
+        Optional<Customer> optionalCustomer = repo.findByEmail(email);
+        if (optionalCustomer.isPresent()) {
+            Customer customer = optionalCustomer.get();
+
+            // Update fields only if they are present in the request
+            if (updateRequest.firstName() != null) {
+                customer.setFirstName(updateRequest.firstName());
+            }
+            if (updateRequest.lastName() != null) {
+                customer.setLastName(updateRequest.lastName());
+            }
+            if (updateRequest.address() != null) {
+                customer.setAddress(updateRequest.address());
+            }
+            if (updateRequest.city() != null) {
+                customer.setCity(updateRequest.city());
+            }
+            if (updateRequest.pincode() != null) {
+                customer.setPincode(updateRequest.pincode());
+            }
+            customer.setUpdatedOn(LocalDateTime.now());
+            return repo.save(customer);
+        } else {
+            return null;
+        }
+    }
 }

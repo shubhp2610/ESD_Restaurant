@@ -51,4 +51,22 @@ public class CustomerRequest {
             String password
     ) {
     }
+
+    public record CustomerUpdateRequest(
+            @JsonProperty("first_name")
+            String firstName,
+
+            @JsonProperty("last_name")
+            String lastName,
+
+            @JsonProperty("address")
+            String address,
+
+            @JsonProperty("city")
+            String city,
+
+            @JsonProperty("pincode")
+            Long pincode
+    ) {
+    }
 }
