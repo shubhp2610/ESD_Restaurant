@@ -54,4 +54,9 @@ public class ProductController {
         }
         return ResponseEntity.ok("Product Deleted Successfully!");
     }
+
+    @GetMapping("/top-2-products")
+    public ResponseEntity<List<Product>> getTopProducts() {
+        return ResponseEntity.ok(productService.getTop2Products());
+    }
 }
